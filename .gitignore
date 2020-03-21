@@ -4,3 +4,4 @@ venv/
 */*/settings.py
 *.pyc
 *.log
+**/migrations/*
