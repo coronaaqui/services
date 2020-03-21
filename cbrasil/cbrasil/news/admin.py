@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from cbrasil.news.models import News, Sources, Achievements
+from cbrasil.news.models import News, Sources, Events
 
 admin.site.register(News)
 admin.site.register(Sources)
-admin.site.register(Achievements)
+admin.site.register(Events)

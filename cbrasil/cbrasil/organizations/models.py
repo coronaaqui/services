@@ -25,7 +25,6 @@ class Organizations(Timestamped):
     region = models.ForeignKey(Regions, on_delete=models.CASCADE, blank=True, null=True)
     city = models.ForeignKey(Cities, on_delete=models.CASCADE, blank=True, null=True)
     sector = models.ForeignKey(Sectors, on_delete=models.CASCADE)
-    all_sector = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
 
     class Meta:

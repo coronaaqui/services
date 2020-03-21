@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 
 from rest_framework import serializers
 
-from cbrasil.news.models import News, Achievements, Sources
+from cbrasil.news.models import News, Events, Sources
 
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -11,10 +11,10 @@ class NewsSerializer(serializers.ModelSerializer):
         model = News
         fields = '__all__'
 
-class AchievementsSerializer(serializers.ModelSerializer):
+class EventsSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Achievements
+        model = Events
         fields = '__all__'
 
 class SourcesSerializer(serializers.ModelSerializer):
