@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from cbrasil.base import Timestamped
@@ -49,7 +50,7 @@ class Events(Timestamped):
     city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True, blank=True, related_name='cities_events')
     sector = models.ForeignKey(Sectors, on_delete=models.CASCADE, null=True, blank=True, related_name='sector_events')
     name = models.CharField(max_length=64, null=True, blank=True)
-    from_date = models.DateField(null=True, blank=True)
+    from_date = models.DateField()
     to_date = models.DateField(null=True, blank=True)
     undefined_ends_date = models.BooleanField(null=True, blank=True)
     source = models.ForeignKey(News, on_delete=models.CASCADE, null=True, blank=True)
@@ -61,6 +62,15 @@ class Events(Timestamped):
 
     def __str__(self):
         return self.name if self.name else str(self.id)
+
+    def clean(self):
+        if self.region is None and self.city is None:
+            raise ValidationError({
+                'region': _('O evento precisa conter uma cidade ou um estado.'),
+                'city': _('O evento precisa conter uma cidade ou um estado.'),
+            })
+
+
 
 
 
