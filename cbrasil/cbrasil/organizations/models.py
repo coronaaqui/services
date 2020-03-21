@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from cbrasil.base import Timestamped
@@ -8,7 +9,6 @@ from cbrasil.places.models import Cities, Regions
 class Sectors(Timestamped):
 
     name = models.CharField(max_length=32)
-    mini_flag = models.ImageField(upload_to='mini_flags/', null=True, blank=True)
     active = models.BooleanField(default=True)
 
     class Meta:
@@ -33,3 +33,10 @@ class Organizations(Timestamped):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.region is None and self.city is None:
+            raise ValidationError({
+                'region': _('A organização precisa conter uma cidade ou um estado.'),
+                'city': _('A organização precisa conter uma cidade ou um estado.'),
+            })
