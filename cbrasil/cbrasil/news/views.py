@@ -1,8 +1,8 @@
 from rest_framework.generics import ListAPIView
 from rest_framework import filters
 
-from cbrasil.news.serializers import NewsSerializer, AchievementsSerializer
-from cbrasil.news.models import News, Achievements
+from cbrasil.news.serializers import NewsSerializer, AchievementsSerializer, SourcesSerializer
+from cbrasil.news.models import News, Achievements, Sources
 
 class NewsView(ListAPIView):
 
@@ -13,4 +13,8 @@ class AchievementsView(ListAPIView):
 
     queryset = Achievements.objects.all().order_by('-created')
     serializer_class = AchievementsSerializer
-    search_fields = ['title', 'raw_content']
+
+class SourcesView(ListAPIView):
+
+    queryset = Sources.objects.all().order_by('-created')
+    serializer_class = SourcesSerializer

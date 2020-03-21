@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView
+from rest_framework import filters
 
-# Create your views here.
+from cbrasil.organizations.serializers import SectorsSerializer, OrganizationsSerializer
+from cbrasil.organizations.models import Sectors, Organizations
+
+class SectorsView(ListAPIView):
+
+    queryset = Sectors.objects.all().order_by('-created')
+    serializer_class = SectorsSerializer
+
+class OrganizationsView(ListAPIView):
+
+    queryset = Organizations.objects.all().order_by('-created')
+    serializer_class = OrganizationsSerializer
