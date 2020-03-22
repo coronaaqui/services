@@ -16,3 +16,9 @@ class OrganizationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizations
         fields = '__all__'
+
+
+class NestedOrganizationsSerializer(OrganizationsSerializer):
+    
+    def get_field_names(self, declared_fields, info):
+        return ['name']
