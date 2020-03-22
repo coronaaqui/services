@@ -42,13 +42,13 @@ class Events(Timestamped):
     STATUS_TYPES = (
         (PARTIAL_CLOSE, 'Partialy close'),
         (FULLY_CLOSE, 'Fully close'),
-        (REOPEN, 'Reopen'),
+        (REOPEN, 'Open'),
     )
 
-    organization = models.ForeignKey(Organizations, on_delete=models.CASCADE, null=True, blank=True, related_name='org_events')
+    organization = models.ForeignKey(Organizations, on_delete=models.CASCADE, null=True, blank=True, related_name='events')
     region = models.ForeignKey(Regions, on_delete=models.CASCADE, null=True, blank=True)
-    city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True, blank=True, related_name='cities_events')
-    sector = models.ForeignKey(Sectors, on_delete=models.CASCADE, null=True, blank=True, related_name='sector_events')
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True, blank=True, related_name='events')
+    sector = models.ForeignKey(Sectors, on_delete=models.CASCADE, null=True, blank=True, related_name='events')
     name = models.CharField(max_length=64, null=True, blank=True)
     from_date = models.DateField()
     to_date = models.DateField(null=True, blank=True)

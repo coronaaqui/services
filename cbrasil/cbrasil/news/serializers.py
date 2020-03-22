@@ -4,7 +4,6 @@ from rest_framework import serializers
 
 from cbrasil.news.models import News, Events, Sources
 from cbrasil.places.serializers import NestedRegionsSerializer, NestedCitiesSerializer
-from cbrasil.organizations.serializers import NestedOrganizationsSerializer
 
 class NewsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,15 +21,6 @@ class NestedNewsSerializer(NewsSerializer):
     def get_field_names(self, declared_fields, info):
         return ['title', 'source', 'text', 'link']
 
-class EventsSerializer(serializers.ModelSerializer):
-    source = NestedNewsSerializer()
-    region = NestedRegionsSerializer()
-    city = NestedCitiesSerializer()
-    organization = NestedOrganizationsSerializer()
-    
-    class Meta:
-        model = Events
-        fields = '__all__'
 
 class SourcesSerializer(serializers.ModelSerializer):
     
