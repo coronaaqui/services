@@ -14,15 +14,10 @@ class OrganizationsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SectorsSerializer(serializers.ModelSerializer):
-    total_events = serializers.SerializerMethodField()
+    total_events = serializers.IntegerField(read_only=True)
     class Meta:
         model = Sectors
         fields = ['id', 'total_events', 'name']
-
-    def get_total_events(self, obj):
-        region__initial = self.context.get('request').query_params.get('region__initial', None)
-        events = obj.events.filter(region__initial=region__initial) if region__initial else obj.events.all()
-        return events.count()
 
 class NestedOrganizationsSerializer(OrganizationsSerializer):
     
