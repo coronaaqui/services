@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from django.db.models import Q
 
 from rest_framework import serializers
 
@@ -6,6 +7,7 @@ from cbrasil.organizations.models import Sectors, Organizations
 from cbrasil.places.serializers import NestedCitiesSerializer, NestedRegionsSerializer
 from cbrasil.news.models import Events
 from cbrasil.news.serializers import NestedNewsSerializer
+
 
 class OrganizationsSerializer(serializers.ModelSerializer):
     
@@ -47,7 +49,7 @@ class SectorEventsSerializer(SectorsSerializer):
 
     def get_events(self, obj):
         region__initial = self.context.get('request').query_params.get('region__initial', None)
-        events = obj.events.filter(region__initial=region__initial.upper()) if region__initial else obj.events.all()
+        events = obj.events.filter(Q(Q(region__initial=region__initial) | Q(city__region__initial=region__initial))) if region__initial else obj.events.all()
         serializer = EventsSerializer(instance=events[:5], many=True)
 
         return serializer.data
