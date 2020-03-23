@@ -23,3 +23,12 @@ class SectorsEventsView(ListAPIView):
 
     queryset = Sectors.objects.all().order_by('-created')
     serializer_class = SectorEventsSerializer
+
+
+class SectorsEventsRegionsView(ListAPIView):
+
+    serializer_class = SectorsSerializer
+    filter_backends = [SectorsAggregationFilters]
+    queryset = Sectors.objects.all()
+
+
