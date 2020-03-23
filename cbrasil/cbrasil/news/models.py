@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
 from cbrasil.base import Timestamped
 from cbrasil.organizations.models import Organizations
@@ -56,6 +57,7 @@ class Events(Timestamped):
     source = models.ForeignKey(News, on_delete=models.CASCADE, null=True, blank=True)
     status_type = models.CharField(max_length=1,choices=STATUS_TYPES)
     estimated_impact = models.IntegerField(default=1, help_text='Número estimado de estabelecimentos/serviços atingidos')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = _("Event")
