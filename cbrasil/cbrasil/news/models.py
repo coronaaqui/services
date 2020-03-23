@@ -55,6 +55,7 @@ class Events(Timestamped):
     undefined_ends_date = models.BooleanField(null=True, blank=True)
     source = models.ForeignKey(News, on_delete=models.CASCADE, null=True, blank=True)
     status_type = models.CharField(max_length=1,choices=STATUS_TYPES)
+    estimated_impact = models.IntegerField(default=1, help_text='Número estimado de estabelecimentos/serviços atingidos')
 
     class Meta:
         verbose_name = _("Event")
