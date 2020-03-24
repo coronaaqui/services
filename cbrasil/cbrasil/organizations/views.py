@@ -25,10 +25,4 @@ class SectorsEventsView(ListAPIView):
     serializer_class = SectorEventsSerializer
 
 
-class SectorsEventsRegionsView(ListAPIView):
-
-    serializer_class = SectorsSerializer
-    filter_backends = [SectorsAggregationFilters]
-    queryset = Sectors.objects.all()
-
 

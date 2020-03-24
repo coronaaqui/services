@@ -24,7 +24,7 @@ class Sources(Timestamped):
 class News(Timestamped):
     title = models.CharField(max_length=64, null=True, blank=True)
     source = models.ForeignKey(Sources, on_delete=models.CASCADE, null=True, blank=True)
-    text = models.TextField(max_length=120)
+    text = models.TextField(max_length=300)
     link = models.URLField()
 
     class Meta:

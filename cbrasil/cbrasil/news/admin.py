@@ -6,7 +6,7 @@ from cbrasil.places.models import Regions
 
 
 class RegionFilter(admin.SimpleListFilter):
-    title = 'Estado'
+    title = 'estado'
 
     parameter_name = 'region'
 
@@ -23,8 +23,10 @@ class RegionFilter(admin.SimpleListFilter):
 
 class EventsAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'region', 'sector')
+    search_fields = ('name',)
+    list_filter = ('sector',)
     exclude = ('author',)
-    list_filter = (RegionFilter, 'sector')
+
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'author', None) is None:

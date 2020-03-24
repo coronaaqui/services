@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
 from cbrasil.news.models import News, Events, Sources
+from cbrasil.organizations.models import Sectors
 from cbrasil.places.serializers import NestedRegionsSerializer, NestedCitiesSerializer
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -27,3 +28,13 @@ class SourcesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sources
         fields = '__all__'
+
+class BaseEventsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Events
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        instance['sector'] = Sectors.objects.get(pk=instance['sector']).name
+        return instance
