@@ -17,9 +17,11 @@ class OrganizationsSerializer(serializers.ModelSerializer):
 
 class SectorsSerializer(serializers.ModelSerializer):
     total_estimated_impact = serializers.IntegerField(read_only=True)
+    events_count = serializers.IntegerField(read_only=True)
+    
     class Meta:
         model = Sectors
-        fields = ['id', 'total_estimated_impact', 'name']
+        fields = ['id', 'total_estimated_impact', 'name', 'events_count']
 
 class NestedOrganizationsSerializer(OrganizationsSerializer):
     
