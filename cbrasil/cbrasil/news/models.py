@@ -58,6 +58,8 @@ class Events(Timestamped):
     status_type = models.CharField(max_length=1,choices=STATUS_TYPES)
     estimated_impact = models.IntegerField(default=1, help_text='Número estimado de estabelecimentos/serviços atingidos')
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    text = models.TextField(max_length=300, null=True, blank=True)
+
 
     class Meta:
         verbose_name = _("Event")
