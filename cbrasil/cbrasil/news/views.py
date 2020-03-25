@@ -22,7 +22,16 @@ class EventsView(ListAPIView):
     queryset = Events.objects.all().order_by('-created')
     serializer_class = EventsSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['region__initial', 'sector', 'city']
+    filterset_fields = ['sector', 'city']
+
+    def get_queryset(self):
+        qs = super(EventsView, self).get_queryset()
+        region__initial = self.request.query_params.get('region__initial', None)
+        if region__initial:
+            return qs.filter(Q(Q(region__initial=region__initial) | Q(city__region__initial=region__initial)))
+        return qs
+
+    
 
 class SourcesView(ListAPIView):
 

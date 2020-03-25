@@ -16,7 +16,8 @@ class NestedNewsSerializer(NewsSerializer):
 
     def to_representation(self, instance):
         fields = super().to_representation(instance)
-        fields['source'] = instance.source.name
+        if hasattr(instance.source,'name'):
+            fields['source'] = instance.source.name
         return fields
 
     def get_field_names(self, declared_fields, info):
