@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
+from django.contrib.auth.models import User as DjangoUser
 
 from rest_framework import serializers
 
@@ -28,12 +29,29 @@ class NestedOrganizationsSerializer(OrganizationsSerializer):
     def get_field_names(self, declared_fields, info):
         return ['name']
 
+
+class AuthorSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = DjangoUser
+        fields = ['name']
+
+    def get_name(self, obj):
+        if obj.first_name != '' and obj.last_name != '':
+            return "{} {}".format(obj.first_name, obj.last_name)
+        elif obj.first_name != '':
+            return obj.first_name
+        else:
+            return None
+
 class EventsSerializer(serializers.ModelSerializer):
 
     source = NestedNewsSerializer()
     region = NestedRegionsSerializer()
     city = NestedCitiesSerializer()
     organization = NestedOrganizationsSerializer()
+    author = AuthorSerializer()
     
     class Meta:
         model = Events
