@@ -14,8 +14,8 @@ class Regions(Timestamped):
     active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = _("Region")
-        verbose_name_plural = _("Regions")
+        verbose_name = _("Região")
+        verbose_name_plural = _("Regiões")
 
     def __str__(self):
         return self.name
@@ -28,8 +28,8 @@ class Cities(Timestamped):
     active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = _("City")
-        verbose_name_plural = _("Cities")
+        verbose_name = _("Cidade")
+        verbose_name_plural = _("Cidades")
 
     def __str__(self):
         return self.name

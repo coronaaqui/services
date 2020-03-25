@@ -12,8 +12,8 @@ class Sectors(Timestamped):
     active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = _("Sector")
-        verbose_name_plural = _("Sectors")
+        verbose_name = _("Setor")
+        verbose_name_plural = _("Setores")
 
     def __str__(self):
         return self.name
@@ -28,8 +28,8 @@ class Organizations(Timestamped):
     active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name = _("Organization")
-        verbose_name_plural = _("Organizations")
+        verbose_name = _("Organização")
+        verbose_name_plural = _("Organizações")
 
     def __str__(self):
         return self.name

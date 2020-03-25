@@ -26,7 +26,7 @@ class EventsAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('sector',)
     exclude = ('author',)
-
+    save_as = True
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'author', None) is None:

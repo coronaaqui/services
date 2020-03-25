@@ -14,8 +14,8 @@ class Sources(Timestamped):
     official_site = models.CharField(max_length=64)
 
     class Meta:
-        verbose_name = _("Source")
-        verbose_name_plural = _("Sources")
+        verbose_name = _("Fonte")
+        verbose_name_plural = _("Fontes")
 
     def __str__(self):
         return self.name
@@ -28,8 +28,8 @@ class News(Timestamped):
     link = models.URLField()
 
     class Meta:
-        verbose_name = _("News")
-        verbose_name_plural = _("News")
+        verbose_name = _("Notícia")
+        verbose_name_plural = _("Notícias")
 
     def __str__(self):
         return self.title
@@ -41,29 +41,29 @@ class Events(Timestamped):
     FULLY_CLOSE = 'F'
     REOPEN = 'O'
     STATUS_TYPES = (
-        (PARTIAL_CLOSE, 'Partialy close'),
-        (FULLY_CLOSE, 'Fully close'),
-        (REOPEN, 'Open'),
+        (PARTIAL_CLOSE, 'Funcionamento limitado'),
+        (FULLY_CLOSE, 'Totalmente fechado'),
+        (REOPEN, 'Aberto'),
     )
 
-    organization = models.ForeignKey(Organizations, on_delete=models.CASCADE, null=True, blank=True, related_name='events')
-    region = models.ForeignKey(Regions, on_delete=models.CASCADE, null=True, blank=True)
-    city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True, blank=True, related_name='events')
-    sector = models.ForeignKey(Sectors, on_delete=models.CASCADE, null=True, blank=True, related_name='events')
-    name = models.CharField(max_length=64, null=True, blank=True)
-    from_date = models.DateField()
-    to_date = models.DateField(null=True, blank=True)
-    undefined_ends_date = models.BooleanField(null=True, blank=True)
-    source = models.ForeignKey(News, on_delete=models.CASCADE, null=True, blank=True)
-    status_type = models.CharField(max_length=1,choices=STATUS_TYPES)
+    organization = models.ForeignKey(Organizations, on_delete=models.CASCADE, null=True, blank=True, related_name='events', help_text='Selecione SOMENTE caso o evento afete uma organização/empresa especificamente.')
+    region = models.ForeignKey(Regions, on_delete=models.CASCADE, null=True, blank=True, help_text='Selecione um estado SOMENTE se a medida afeta todo estado.')
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE, null=True, blank=True, related_name='events', help_text='Selecione uma cidade SOMENTE se a medida afeta exclusivamente uma cidade.')
+    sector = models.ForeignKey(Sectors, on_delete=models.CASCADE, null=True, blank=True, related_name='events', help_text='Selecione um setor caso todo o grupo seja afetado.')
+    name = models.CharField(max_length=64, help_text='Nome do serviço/estabelecimento/grupo afetado.')
+    from_date = models.DateField(help_text='Início da validade do decreto.')
+    to_date = models.DateField(null=True, blank=True, help_text='Fim da validade do decreto. Caso não haja, deixar em branco.')
+    undefined_ends_date = models.BooleanField(null=True, blank=True, help_text='O evento tem uma data de término indefinida?')
+    source = models.ForeignKey(News, on_delete=models.CASCADE, null=True, blank=True, help_text='Se possível, selecione sempre a notícia associada ao evento. Você pode selecionar uma existente ou criar clicando no +.')
+    status_type = models.CharField(max_length=1,choices=STATUS_TYPES, help_text='Escolha o  impacto do evento.')
     estimated_impact = models.IntegerField(default=1, help_text='Número estimado de estabelecimentos/serviços atingidos')
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    text = models.TextField(max_length=300, null=True, blank=True)
+    text = models.TextField(max_length=300, null=True, blank=True, help_text='Na ordem de exibição buscamos exibir o texto do evento, caso não haja, exibiremos o texto da notícia atrelada ao mesmo.')
 
 
     class Meta:
-        verbose_name = _("Event")
-        verbose_name_plural = _("Events")
+        verbose_name = _("Evento")
+        verbose_name_plural = _("Eventos")
 
     def __str__(self):
         return self.name if self.name else str(self.id)
