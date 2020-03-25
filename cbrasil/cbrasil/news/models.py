@@ -32,7 +32,7 @@ class News(Timestamped):
         verbose_name_plural = _("Notícias")
 
     def __str__(self):
-        return self.title
+        return self.link
 
 
 class Events(Timestamped):
