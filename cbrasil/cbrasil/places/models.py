@@ -11,6 +11,7 @@ class Regions(Timestamped):
     twitter = models.CharField(max_length=32, null=True, blank=True, default=None)
     instagram = models.CharField(max_length=32, null=True, blank=True, default=None)
     initial = models.CharField(max_length=2)
+    phone = models.CharField(max_length=16, null=True, blank=True, default=None)
     active = models.BooleanField(default=True)
 
     class Meta:
