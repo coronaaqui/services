@@ -37,5 +37,10 @@ class BaseEventsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def to_representation(self, instance):
-        instance['sector'] = Sectors.objects.get(pk=instance['sector']).name
+        try:
+            instance['sector'] = Sectors.objects.get(pk=instance['sector']).name
+        except Exception:
+            pass
+        
         return instance
+
