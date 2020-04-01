@@ -19,6 +19,13 @@ cd services
 pip install -r requirements.txt
 ```
 
+Creating settings.py file and modify access DB:
+```bash
+cd services/cbrasil/cbrasil
+mv settings.example.py settings.py
+vim settings.py
+(and configure your DB access)
+```
 
 
 ## Running
